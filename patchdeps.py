@@ -216,7 +216,7 @@ class ByFileAnalyzer:
                 touches_file[f.path].append(patch)
 
         if 'blame' in args.actions:
-            for f, ps in touches_file.items():
+            for path, ps in touches_file.items():
                 patch = ps[-1]
                 print(f"{patch!s:80.80} {path}")
 
