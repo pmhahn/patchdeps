@@ -471,12 +471,12 @@ class ByLineFileAnalyzer:
 
     def print_blame(self):
         print("{}:".format(self.fname))
-        next_line = None
+        next_line = 0
         for line_state in self.line_list:
             if line_state.line is None:
                 continue
 
-            if next_line and line_state.lineno != next_line:
+            if line_state.lineno != next_line > 0:
                 for _ in range(3):
                     print("{:50}    .".format(""))
 
