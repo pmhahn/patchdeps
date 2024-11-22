@@ -121,13 +121,12 @@ class GitRev(Changeset):
 
 def print_depends(patches, depends):
     for p in patches:
-        if not depends[p]:
-            continue
-        print(f"{p} depends on: ")
-        for dep in patches:
-            if dependency := dependencies.get(dep):
-                desc = dependency.desc
-                print(f"  {dep}{f' ({desc})' if desc else ''}")
+        if dependencies := depends[p]:
+            print(f"{p} depends on: ")
+            for dep in patches:
+                if dependency := dependencies.get(dep):
+                    desc = dependency.desc
+                    print(f"  {dep}{f' ({desc})' if desc else ''}")
 
 
 def print_depends_matrix(patches, depends):
