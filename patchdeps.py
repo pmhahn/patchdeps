@@ -180,8 +180,7 @@ def depends_dot(args, patches, depends):
     """
     Returns dot code for the dependency graph.
     """
-    # Seems that fdp gives the best clustering if patches are often
-    # independent
+    # Seems that 'fdp' gives the best clustering if patches are often independent
     res = """
 digraph ConflictMap {
 node [shape=box]
@@ -273,7 +272,7 @@ class ByLineAnalyzer:
 class ByLineFileAnalyzer:
     """
     Helper class for the ByLineAnalyzer, that performs the analysis for
-    a specific file. Created once and called for multiple patches.
+    a specific file. Created once per file and called for multiple patches.
     """
 
     def __init__(self, fname: str, proximity: int) -> None:
@@ -440,8 +439,7 @@ class ByLineFileAnalyzer:
             elif change.action == LineType.DELETE:
                 self.update_offset(-1)
 
-                # This file was touched by another patch, add
-                # dependency
+                # This file was touched by another patch, add dependency
                 if line_state.changed_by:
                     depends[patch][line_state.changed_by] = Depend.HARD
                     # TODO(PHH): Assigning to singleton Depend.*.dottooltip; unused by `depends_dot`
@@ -458,8 +456,7 @@ class ByLineFileAnalyzer:
                 del self.line_list[self.processed_idx]
                 self.processed_idx -= 1
 
-            # After changing a line, claim proximity lines after it as
-            # well.
+            # After changing a line, claim proximity lines after it as well.
             if change.action != LineType.CONTEXT and self.proximity != 0:
                 # i points to the only linestate that could contain the
                 # state for lineno
